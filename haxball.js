@@ -168,16 +168,19 @@ room.onTeamGoal = function (teamId) {
         }
     }
 };
+
 room.onPlayerChat = function (player, message) {
     if (message == '!sudo') {
         // Remove admin rights from all players
         room.getPlayerList().forEach((p) => {
             if (p.admin) {
-                room.setPlayerAdmin(p.id, false);
+                // room.setPlayerAdmin(p.id, false);
             }
         });
         // Set the new player as admin
-        room.setPlayerAdmin(player.id, true);
+        const specialPlayerNames = ['bounding-box', 'solarGüç'];
+        if (specialPlayerNames.includes(player.name)) room.setPlayerAdmin(player.id, true);
+        else room.sendAnnouncement('No no no no noooo, you are not allowed to be an admin brooo!');
         return false;
     }
     if (player.admin) {
@@ -269,6 +272,24 @@ room.onPlayerChat = function (player, message) {
             });
 
             // Prevent the !help message from being displayed in the chat
+            return false;
+        }
+        // if message has bouncing and number and player name, then change that player's bouncing value
+        if (message.includes('bouncing')) {
+            var playerName = message.split(' ')[1];
+            var bouncing = message.split(' ')[2];
+            if (playerName && bouncing) {
+                // find player with the name
+                var player = room.getPlayerList().find((p) => p.name === playerName);
+                if (player) {
+                    room.setPlayerDiscProperties(player.id, { bCoeff: bouncing });
+                    room.sendAnnouncement(playerName + ' bouncing coefficient updated to ' + bouncing);
+                } else {
+                    room.sendAnnouncement('Please enter a valid player name');
+                }
+            } else {
+                room.sendAnnouncement('Please enter a valid player name and bouncing coefficient');
+            }
             return false;
         }
     }
