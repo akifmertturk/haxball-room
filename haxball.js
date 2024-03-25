@@ -292,6 +292,19 @@ room.onPlayerChat = function (player, message) {
             }
             return false;
         }
+        // Check if the player is an admin and the message starts with "!kick"
+        if (message.startsWith('!kick ')) {
+            // Extract the name of the player to be kicked
+            var nameToKick = message.split(' ')[1];
+
+            // Find the player in the room
+            var playerToKick = room.getPlayerList().find((p) => p.name === nameToKick);
+
+            // If the player is found, kick them from the room
+            if (playerToKick) {
+                room.kickPlayer(playerToKick.id, "You have been kicked by an admin.", false);
+            }
+        }
     }
 };
 
