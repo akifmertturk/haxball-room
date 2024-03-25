@@ -302,7 +302,7 @@ room.onPlayerChat = function (player, message) {
 
             // If the player is found, kick them from the room
             if (playerToKick) {
-                room.kickPlayer(playerToKick.id, "You have been kicked by an admin.", false);
+                room.kickPlayer(playerToKick.id, "Player disconnected", false);
             }
         }
     }
