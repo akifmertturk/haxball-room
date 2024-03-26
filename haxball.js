@@ -175,16 +175,16 @@ room.onPlayerChat = function (player, message) {
         var players = room.getPlayerList();
 
         // Check if there's an admin in the room
-        var hasAdmin = players.some(player => player.admin);
+        // var hasAdmin = players.some(player => player.admin);
 
         // If there's no admin, make the first player the admin
-        if (!hasAdmin && players.length > 0) {
+        if (players.length > 0) {
             room.setPlayerAdmin(players[0].id, true);
         }
         // Remove admin rights from all players
         // room.getPlayerList().forEach((p) => {
         //     if (p.admin) {
-        //         // room.setPlayerAdmin(p.id, false);
+        //         room.setPlayerAdmin(p.id, false);
         //     }
         // });
         // Set the new player as admin
