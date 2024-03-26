@@ -171,16 +171,27 @@ room.onTeamGoal = function (teamId) {
 
 room.onPlayerChat = function (player, message) {
     if (message == '!sudo') {
+        // Get the list of players
+        var players = room.getPlayerList();
+
+        // Check if there's an admin in the room
+        var hasAdmin = players.some(player => player.admin);
+
+        // If there's no admin, make the first player the admin
+        if (!hasAdmin && players.length > 0) {
+            room.setPlayerAdmin(players[0].id, true);
+        }
         // Remove admin rights from all players
-        room.getPlayerList().forEach((p) => {
-            if (p.admin) {
-                // room.setPlayerAdmin(p.id, false);
-            }
-        });
+        // room.getPlayerList().forEach((p) => {
+        //     if (p.admin) {
+        //         // room.setPlayerAdmin(p.id, false);
+        //     }
+        // });
         // Set the new player as admin
-        const specialPlayerNames = ['bounding-box', 'solarGüç'];
-        if (specialPlayerNames.includes(player.name)) room.setPlayerAdmin(player.id, true);
-        else room.sendAnnouncement('No no no no noooo, you are not allowed to be an admin brooo!');
+        // const specialPlayerNames = ['bounding-box', 'solarGüç'];
+        // if (specialPlayerNames.includes(player.name)) room.setPlayerAdmin(player.id, true);
+        // else room.sendAnnouncement('No no no no noooo, you are not allowed to be an admin brooo!');
+
         return false;
     }
     if (player.admin) {
