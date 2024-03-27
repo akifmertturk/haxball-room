@@ -26,7 +26,7 @@ var DISK_BALL = 0;
 /** GLOBALS */
 var powerActive = false; //You can kick the ball faster when this is true.
 var PowerCoefficient = BALL_SPEED_COEFFICIENT; //Original ball kick speed would be multiplied by this number when power shot is activated.
-var TimeOut = 80; //This means 60 frames per second.
+var TimeOut = 800; //This means 60 frames per second.
 var TimePlayerBallTouch = 0; //The time indicator that increases as player touched to the ball
 
 var assistingTouch = '';
