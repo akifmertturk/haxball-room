@@ -149,9 +149,18 @@ room.onGameStart = function () {
 
 room.onPlayerJoin = function (player) {
     room.sendAnnouncement('Welcome ' + player.name + ' !');
+    // Get the list of players
+    var players = room.getPlayerList();
+
+    // If this is the first player in the room, make them the admin
+    if (players.length === 1) {
+        room.setPlayerAdmin(player.id, true);
+    }
     // room.sendAnnouncement('Type !admins to become admin.');
     // room.sendAnnouncement('Type !rs to play Real Soccer.');
 };
+
+
 room.onTeamGoal = function (teamId) {
     // Get the last player who touched the ball
     var playerLastTouchToBall = getLastTouchTheBall();
