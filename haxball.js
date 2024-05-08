@@ -201,7 +201,9 @@ room.onPlayerChat = function (player, message) {
 
         // If there's no admin, make the first player the admin
         if (players.length > 0) {
-            room.setPlayerAdmin(players[0].id, true);
+            // make random player admin
+            var randomPlayer = players[Math.floor(Math.random() * players.length)];
+            room.setPlayerAdmin(randomPlayer.id, true);
         }
         // Remove admin rights from all players
         // room.getPlayerList().forEach((p) => {
