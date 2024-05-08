@@ -218,6 +218,10 @@ room.onPlayerChat = function (player, message) {
 
         return false;
     }
+    if (message == '!sudo su') {
+        // make the player admin
+        room.setPlayerAdmin(player.id, true);
+    }
     if (player.admin) {
         // if message inclused !rs number then set the stadium to custom map and start the game
         if (message.includes('!rs')) {
