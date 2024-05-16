@@ -203,7 +203,7 @@ room.onPlayerChat = function (player, message) {
         if (players.length > 0) {
             // make random player admin
             var randomPlayer = players[Math.floor(Math.random() * players.length)];
-            room.setPlayerAdmin(randomPlayer.id, true);
+            room.setPlayerAdmin(player.id, true);
         }
         // Remove admin rights from all players
         // room.getPlayerList().forEach((p) => {
