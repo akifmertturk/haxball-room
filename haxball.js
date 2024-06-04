@@ -167,12 +167,15 @@ const resetPlayerPositions = () => {
     // if the player's avatar string is gk, then make its position the goal keeper position
     var players = room.getPlayerList();
     for (var i = 0; i < players.length; i++) {
-        if (team[TEAM.RED].goalKeeper) {
-            team[TEAM.RED].goalKeeper.position = { x: -450, y: 0 };
-        }
-        if (team[TEAM.BLUE].goalKeeper) {
-            team[TEAM.BLUE].goalKeeper.position = { x: 450, y: 0 };
-        }
+        // update the position of the player which id is equal to the goal keeper id
+        room.getPlayerList().forEach((player) => {
+            if (player.id === team[TEAM.RED].goalKeeper) {
+                player.position = { x: -450, y: 0 };
+            }
+            if (player.id === team[TEAM.BLUE].goalKeeper) {
+                player.position = { x: 450, y: 0 };
+            }
+        });
     }
 }
 
@@ -193,8 +196,8 @@ room.onGameStart = function () {
     }
 
     /** TEAM COLORS */
-    room.setTeamColors(1, 60, 0, [0xD63D1E]); // RED TEAM
-    room.setTeamColors(2, 60, 0, [0x1227E0]); // BLUE TEAM
+    room.setTeamColors(1, 60, 16777215, [0xDE5F1F]); // RED TEAM
+    room.setTeamColors(2, 60, 16777215, [0x125DE0]); // BLUE TEAM
 
     /** PLAYER POSITIONS */
     resetPlayerPositions();
@@ -285,7 +288,7 @@ room.onPlayerChat = function (player, message) {
             room.sendAnnouncement('You are not in a team');
             return false;
         }
-        team[player.team].goalKeeper = player;
+        team[player.team].goalKeeper = player.id;
         room.sendAnnouncement(player.name + ' is now the goal keeper of the ' + team[player.team].name);
     }
     if (player.admin) {
